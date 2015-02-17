@@ -25,11 +25,12 @@ class DvdQuery{
 			$query->where('title', 'like','%'. $term .'%')
 			->where('genre_name', $genre);
 		}
-		else{
+		else if ($query){
 			$query->where('title', 'like','%'. $term .'%')
 			->where('genre_name', $genre)
 			->where('rating_name', $rating);
 		}
+		
 
 		$query->orderBy('title', 'asc');
 		
