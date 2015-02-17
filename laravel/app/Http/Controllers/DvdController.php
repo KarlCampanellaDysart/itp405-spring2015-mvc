@@ -10,9 +10,9 @@ class DvdController extends Controller {
 
 	public function search(){
 
-		$genres = (new GenreQuery())->search();
-
-		$ratings = (new RatingsQuery())->search();
+		$dvdQuery = new DvdQuery();
+		$genres = $dvdQuery->searchGenre();
+		$ratings = $dvdQuery->searchRating();
 
 		return view('search', [
 			'genres' => $genres,
