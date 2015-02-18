@@ -13,7 +13,6 @@
 		</div>
 	</div>
 	<div class="container">
-		<?php var_dump($dvds) ?>
 	<table class="table">
 		<thead>
 			<tr>				
@@ -35,7 +34,7 @@
 					<td><?php echo $dvd->label_name ?></td>
 					<td><?php echo $dvd->sound_name ?></td>
 					<td><?php echo $dvd->format_name ?></td> 
-					<td><?php echo $dvd->DATE_FORMAT(release_date,'%W %D %M %Y') ?></td> 
+					<td><?php echo $dvd->release_date ?></td> 
 				</tr>	
 			<?php endforeach ?>			
 		</tbody>

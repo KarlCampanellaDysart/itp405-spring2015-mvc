@@ -11,7 +11,7 @@ class DvdQuery{
 		->join('genres','genres.id','=','dvds.genre_id')		
 		->join('ratings','ratings.id','=','dvds.rating_id')
 		->join('labels','labels.id','=','dvds.label_id')
-		->select(DB::raw('DATE_FORMAT(release_date,"%W %D %M %Y"), title, rating_name, genre_name, label_name, sound_name, format_name, release_date'));
+		->select(DB::raw('DATE_FORMAT(release_date,"%W %D %M %Y") as release_date, title, rating_name, genre_name, label_name, sound_name, format_name'));
 
 
 		if($query && $genre == 'All' && $rating == 'All'){
@@ -30,7 +30,6 @@ class DvdQuery{
 			->where('genre_name', $genre)
 			->where('rating_name', $rating);
 		}
-		
 
 		$query->orderBy('title', 'asc');
 		
