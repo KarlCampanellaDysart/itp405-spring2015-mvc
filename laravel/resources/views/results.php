@@ -23,6 +23,7 @@
 				<th>Sound</th>
 				<th>Format</th>
 				<th>Release</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,6 +36,21 @@
 					<td><?php echo $dvd->sound_name ?></td>
 					<td><?php echo $dvd->format_name ?></td> 
 					<td><?php echo $dvd->release_date ?></td> 
+
+					<td><form action="dvds/<?php echo $dvd->id ?>">
+						<input name="title" value="<?php echo $dvd->title ?>" type="hidden"></input>
+						<input name="id" value="<?php echo $dvd->id ?>" type="hidden"></input>
+
+						<input name="rating_name" value="<?php echo $dvd->rating_name ?>" type="hidden"></input>
+						<input name="genre_name" value="<?php echo $dvd->genre_name ?>" type="hidden"></input>
+						<input name="label_name" value="<?php echo $dvd->label_name ?>" type="hidden"></input>
+						<input name="sound_name" value="<?php echo $dvd->sound_name ?>" type="hidden"></input>
+						<input name="format_name" value="<?php echo $dvd->format_name ?>" type="hidden"></input>
+						<input name="release_date" value="<?php echo $dvd->release_date ?>" type="hidden"></input>
+
+						<input type="submit" value="Reviews"></input>
+					</form></td>
+					
 				</tr>	
 			<?php endforeach ?>			
 		</tbody>

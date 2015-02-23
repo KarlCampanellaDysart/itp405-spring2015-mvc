@@ -10,30 +10,32 @@
 			<h1>DVD Search</h1>
 		</div>
 	</div>
-
 	<div class="container">
 		<form action="/dvds">
-			<input type="text" name="movie_title">
-
-			<label>Genres: </label>
-			<select name="genre">
-				<option>All</option>				
-				<?php foreach($genres as $genre) : ?>
-					<option><?php echo $genre->genre_name ?></option>
-				<?php endforeach; ?>
-			</select>
-
-			<label>Ratings: </label>
-			<select name="rating">	
-				<option>All</option>			
-				<?php foreach($ratings as $rating) : ?>
-					<option><?php echo $rating->rating_name ?></option>
-				<?php endforeach; ?>
-			</select>
-
+			<div class="form-group">
+				<label>Title</label>
+				<input class="form-control" type="text" name="movie_title">
+			</div>
+			<div class="form-group">
+				<label>Genres</label>
+				<select class="form-control" name="genre">
+					<option>All</option>				
+					<?php foreach($genres as $genre) : ?>
+						<option><?php echo $genre->genre_name ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Ratings</label>
+				<select class="form-control" name="rating">	
+					<option>All</option>			
+					<?php foreach($ratings as $rating) : ?>
+						<option><?php echo $rating->rating_name ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>			
 			<input type="submit" value="Search">
 		</form>
 	</div>
-
 </body>
 </html>
