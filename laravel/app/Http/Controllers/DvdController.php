@@ -3,8 +3,12 @@
 use Illuminate\Http\Request;
 use DB;
 use App\Models\DvdQuery;
-use App\Models\GenreQuery;
-use App\Models\RatingsQuery;
+use App\Models\Label;
+use App\Models\Sound;
+use App\Models\Genre;
+use App\Models\Rating;
+use App\Models\Format;
+use App\Models\Dvd;
 
 class DvdController extends Controller {
 
@@ -14,9 +18,12 @@ class DvdController extends Controller {
 		$genres = $dvdQuery->searchGenre();
 		$ratings = $dvdQuery->searchRating();
 
+		$genres = (new Genre())->all();
+
 		return view('search', [
 			'genres' => $genres,
-			'ratings' => $ratings
+			'ratings' => $ratings,
+			'genres' => $genres
 		]);
 	}
 
@@ -77,5 +84,61 @@ class DvdController extends Controller {
 		}
 
 		return redirect()->back()->withErrors($validator)->withInput();
+	}
+
+	public function storeDvd(Request $request){
+
+		$dvd = new Dvd();
+
+		$dvd->title = $request->input('movie_title');
+		$dvd->label_id = $request->input('label');
+		$dvd->sound_id = $request->input('sound');
+		$dvd->genre_id = $request->input('genre');
+		$dvd->rating_id = $request->input('rating');
+		$dvd->format_id = $request->input('format');
+
+		// Dvd::create([
+		// 	'label_id' => $request->input('label'),
+		// 	'sound_id' => $request->input('sound'),
+		// 	'genre_id' => $request->input('genre'),
+		// 	'rating_id' => $request->input('rating'),
+		// 	'format_id' => $request->input('format')
+		// ]);
+
+		$dvd->save();
+
+		//dd($dvd);
+		return redirect()->back()->with('success', 'dvd successfully added.');
+	}
+
+	public function dvdForm(){
+
+		$labels = (new Label())->all();
+		$sounds = (new Sound())->all();
+		$genres = (new Genre())->all();
+		$ratings = (new Rating())->all();
+		$formats = (new Format())->all();
+
+		return view('dvdform',[
+			'labels' => $labels,
+			'sounds' => $sounds,
+			'genres' => $genres,
+			'ratings' => $ratings,
+			'formats' => $formats
+		]);
+	}
+
+	public function getDvdFromGenre(Request $request){
+
+		$dvds = Dvd::with('genre', 'rating', 'label')
+	    ->whereHas('genre', function($query) use ($request) {
+	      $query->where('genre_name', '=', $request->input('genre'));
+	    })
+	    ->get();
+
+		return view('dvdgenre', [
+			'genre' => $request->input('genre'),
+			'dvds' => $dvds
+		]);
 	}
 }

@@ -64,7 +64,7 @@
 				<h4 class="panel-title">Add a new review</h4>
 			</div>
 			<div class="panel-body">
-				<form method="post" action="<?php echo url("dvds") ?>">
+				<form method="post" action="<?php echo URL::route('storeReview') ?>">
 					<input type="hidden" name="_token" value="<?php echo csrf_token() ?>" />
 					<input type="hidden" name="dvd_id" value="<?php echo $dvd_id ?>"/>
 					<div class="form-group">
