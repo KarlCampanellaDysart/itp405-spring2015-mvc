@@ -10,6 +10,8 @@ use App\Models\Rating;
 use App\Models\Format;
 use App\Models\Dvd;
 
+use App\Services\RottenTomatoes;
+
 class DvdController extends Controller {
 
 	public function search(){
@@ -52,6 +54,18 @@ class DvdController extends Controller {
 		$reviews = (new DvdQuery())->searchReviews($request->input('id'));
 		$titles = (new DvdQuery())->getTitles();
 		$nums = (new DvdQuery())->getNumbers(); 
+		
+		$rtData = (new RottenTomatoes())->search($request->input('title'));
+
+		$rtReviewData = null;
+		if($rtData->total == 0){}
+		else{
+			$rtReviewData = $rtData->movies[0];
+			// array('rtRatings' => $rtData['movies'][0]['ratings'],
+			// 'rtImage' => $rtData['movies'][0]['posters']['thumbnail'],
+			// 'rtRuntime' => $rtData['movies'][0]['runtime'],
+			// 'rtCast' => $rtData['movies'][0]['abridged_cast']);
+		}
 
 		return view('reviews',[
 			'title' => $request->input('title'),
@@ -65,6 +79,7 @@ class DvdController extends Controller {
 			'sound_name' => $request->input('sound_name'),
 			'format_name' => $request->input('format_name'),
 			'release_date' => $request->input('release_date'),
+			'rtReviewData' => $rtReviewData
 		]);
 	}
 
@@ -97,13 +112,6 @@ class DvdController extends Controller {
 		$dvd->rating_id = $request->input('rating');
 		$dvd->format_id = $request->input('format');
 
-		// Dvd::create([
-		// 	'label_id' => $request->input('label'),
-		// 	'sound_id' => $request->input('sound'),
-		// 	'genre_id' => $request->input('genre'),
-		// 	'rating_id' => $request->input('rating'),
-		// 	'format_id' => $request->input('format')
-		// ]);
 
 		$dvd->save();
 

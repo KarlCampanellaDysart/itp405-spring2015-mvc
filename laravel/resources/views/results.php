@@ -48,7 +48,7 @@
 						<input name="format_name" value="<?php echo $dvd->format_name ?>" type="hidden"></input>
 						<input name="release_date" value="<?php echo $dvd->release_date ?>" type="hidden"></input>
 
-						<input type="submit" value="Reviews"></input>
+						<input type="submit" value="Details"></input>
 					</form></td>
 					
 				</tr>	
