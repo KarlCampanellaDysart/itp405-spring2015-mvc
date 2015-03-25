@@ -35,7 +35,7 @@ class DvdController extends Controller {
 		$dvds = (new DvdQuery())->search($request->input('movie_title'), $request->input('genre'), $request->input('rating'));
 
 		if(!$request->input('movie_title')){
-			$dvds = (new DvdQuery())->search('', 'All', 'All');
+			$dvds = (new DvdQuery())->search('', $request->input('genre'), $request->input('rating'));
 			return view('results', [
 			'movie_title' => '',
 			'dvds' => $dvds
@@ -61,10 +61,6 @@ class DvdController extends Controller {
 		if($rtData->total == 0){}
 		else{
 			$rtReviewData = $rtData->movies[0];
-			// array('rtRatings' => $rtData['movies'][0]['ratings'],
-			// 'rtImage' => $rtData['movies'][0]['posters']['thumbnail'],
-			// 'rtRuntime' => $rtData['movies'][0]['runtime'],
-			// 'rtCast' => $rtData['movies'][0]['abridged_cast']);
 		}
 
 		return view('reviews',[
